@@ -1,8 +1,10 @@
 const { ApolloServer, gql } = require('apollo-server');
 // https://www.apollographql.com/docs/apollo-server/getting-started/
 
+// products from json file
 const products = require('./products.json')
 
+// gql definitions
 const typeDefs = gql`
   # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
 
@@ -21,7 +23,7 @@ const typeDefs = gql`
 
   # The "Query" type is special: it lists all of the available queries that
   # clients can execute, along with the return type for each. In this
-  # case, the "books" query returns an array of zero or more Books (defined above).
+  # case, the "products" query returns an array of zero or more Products (defined above).
   type Query {
     productsByTitle(title: String!): [Product]
     products: [Product]
@@ -32,18 +34,22 @@ const typeDefs = gql`
 
 
 // Resolvers define the technique for fetching the types defined in the
-// schema. This resolver retrieves books from the "books" array above.
+// schema. This resolver retrieves products from the "products" array above.
 const resolvers = {
   Query: {
+    // get all products
     products(){
       return products
     },
+    // get products filtering by title
     productsByTitle(parent, args, context, info) {
       return products.filter(product => product.title.includes(args.title))
     },
+    // get a specific product
     product (parent, args, context, info) {
       return  products.find((product) => product.id === Number(args.id));
     },
+    // filter expensives products (price greater than $20)
     expensiveProducts() {
       return products.filter(product => product.price > 20)
     }
