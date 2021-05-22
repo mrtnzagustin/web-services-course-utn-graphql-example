@@ -1,0 +1,15 @@
+{
+  "name": "graphqlexample",
+  "version": "1.0.0",
+  "description": "ejemplo de graphql para posgrado utn",
+  "main": "index.js",
+  "scripts": {
+    "test": "}"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.24.1",
+    "graphql": "^15.5.0"
+  }
+}
